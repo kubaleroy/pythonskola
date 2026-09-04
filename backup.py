@@ -36,7 +36,6 @@ writetxt.write(txtold)
 writetxt.close()
 
 commit = f"git commit -m \"{date}{dayver}\""
-print(commit)
 push = f"git push -u origin main"
 os.system(add)
 os.system(commit)
