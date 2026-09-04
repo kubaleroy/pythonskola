@@ -36,7 +36,7 @@ writetxt.write(txtold)
 writetxt.close()
 
 commit = f"git commit -m \"{date}{numcoms}\""
-push = f"git push -u origin master"
+push = f"git push -u origin main"
 os.system(add)
 os.system(commit)
 os.system(push)
