@@ -1,2 +1,3 @@
-import time
-print("hello")
+vek = 17
+print(f"vek : {vek}")
+print("esopesos")
