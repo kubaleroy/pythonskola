@@ -1,31 +1,37 @@
 import math
-DECIMALS = 7
+DECIMALS = 4
+
+def optimize(func, running, Ndotted):
+    score = lambda x: abs(func(x)-x)
+    NotDotted = Ndotted
+    runx = running
+    best = running
+    for j in range(100):
+                runx += str(j/10) if NotDotted else str(j/10).replace(".", "")
+                best = best if best!="" else 9999999999999
+                if score(float(runx)) <= score(float(best)):
+                    best = runx
+                runx = running
+    return best
+
+def cat(func, running, NotDotted):
+    best = optimize(func, running, NotDotted)
+    if best.endswith("9.9") or best.endswith("99"):
+        running = running[:-1] + str(int(running[-1]) + 1)
+        running = cat(func, running, NotDotted)
+    elif best.endswith("0.0") or best.endswith("00"):
+        running = running[:-1] + str(int(running[-1]) - 1)
+        running = cat(func, running, NotDotted)
+    else:
+        running += best[-2]
+    return running
+
+
 def aproximate(func, decimals):
     score = lambda x: abs(func(x)-x)
     running = ""
     NotDotted = True
     for i in range(decimals):
-        runx = running
-        best = running
-        for j in range(100):
-            runx += str(j/10) if NotDotted else str(j/10).replace(".", "")
-            best = best if best!="" else 0
-            if score(float(runx)) <= score(float(best)):
-                best = runx
-            runx = running
-        if best[-2:] == 
+        running = cat(func, running, NotDotted)
 
-
-
-running = "3."
-for i in range(DECIMALS):
-    runx = running
-    best = running
-    for j in range(100):   
-        runx += str(j/10).replace(".", "")
-        if score(float(runx)) <= score(float(best)):
-            best = running + runx[-2:]
-        runx = running
-    running += best[-2]
-print(f"best t = {running} score {score(float(running))}")
-print(f"  x best = {-40000000/2/math.pi - 40000000/2/math.pi/math.cos(float(running))} cos {math.cos(float(running))}")
+        
