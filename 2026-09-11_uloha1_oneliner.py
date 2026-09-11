@@ -1,0 +1,1 @@
+a = [globals().setdefault("b", int(input("Sekundy:\n>>"))),globals().setdefault("l", [b//3600,(b%3600)//60,b%60]), print(f"{(str(l[0])+" h") if l[0] != 0 else ""} {(str(l[1])+" min") if l[1] != 0 else ""} {(str(l[2])+" s")}")]
