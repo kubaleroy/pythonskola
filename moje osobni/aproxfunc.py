@@ -1,13 +1,19 @@
 import math
 DECIMALS = 7
-
-def 
-
 def aproximate(func, decimals):
     score = lambda x: abs(func(x)-x)
     running = ""
+    NotDotted = True
     for i in range(decimals):
-
+        runx = running
+        best = running
+        for j in range(100):
+            runx += str(j/10) if NotDotted else str(j/10).replace(".", "")
+            best = best if best!="" else 0
+            if score(float(runx)) <= score(float(best)):
+                best = runx
+            runx = running
+        if best[-2:] == 
 
 
 
