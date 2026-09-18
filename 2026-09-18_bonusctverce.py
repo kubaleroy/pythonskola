@@ -3,7 +3,7 @@ m = [
     "..#......",
     "..#.####.",
     "..#.#....",
-    "....#....",
+    "....#.#..",
     "....#....",
     "....#....",
     "#........",
@@ -29,7 +29,7 @@ for x in set(sizes):
             ct += 1
     if ct >= x:
         posss.append(x)
-for i in range(len(posss)):
+for i in range(posss[-1]):
     size = posss[-1]-i
     for l in range(len(m)-size):
         if "."*size in m[l]:
