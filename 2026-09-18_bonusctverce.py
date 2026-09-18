@@ -1,3 +1,4 @@
+#zadani
 m = [
     "..#......",
     "..#.####.",
@@ -7,16 +8,20 @@ m = [
     "....#....",
     "#........",
 ]
+
+
 def checkA(startP: list, map:list, size:int):
+#checks subarea of map
     for i in range(size):
         if "#" in map[startP[1]+i][startP[0]:startP[0]+size]:
             return False
     return True
 
-rm = "#".join(m)
-rme = rm.split("#")
+
+rm = "#".join(m) #reduced map
+rme = rm.split("#") 
 sizes = [len(x) for x in rme]
-posss = []
+posss = [] #POSsibleSizeS
 for x in set(sizes):
     ct = 0
     for y in sizes:
