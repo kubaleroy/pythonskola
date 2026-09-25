@@ -5,6 +5,7 @@ import pyautogui as pyi
 import numpy as np
 
 DELAY = 0
+speed = 0
 
 def getcoords():
     return pyi.position()
@@ -15,15 +16,20 @@ def waitfor(key):
         if keyboard.is_pressed(key):
             return
 
+def getmajorcolor(region):
+    img = pyi.screenshot(region=region)
+    colors = img.getcolors()
+    colors = [color[1] for color in colors]
+    return np.average(colors,0)
+
+
 #waitfor("Space")
 #print(getcoords())
 grid = []
-
 waitfor("space")    
-img = pyi.screenshot(region=[getcoords()[0]-5,getcoords()[1]-5, getcoords()[0]+5, getcoords()[1]+5])
-colors = img.getcolors()
-colors = [color[1] for color in colors]
-majorcolor = np.average(colors,0)
+reg = [getcoords()[0]-5,getcoords()[1]-5, getcoords()[0]+5, getcoords()[1]+5]
+
+
 
 
 
