@@ -28,7 +28,7 @@ def getmajorcolor(region):
 grid = []
 waitfor("space")    
 reg = [getcoords()[0]-5,getcoords()[1]-5, getcoords()[0]+5, getcoords()[1]+5]
-
+print(getmajorcolor(reg))
 
 
 
