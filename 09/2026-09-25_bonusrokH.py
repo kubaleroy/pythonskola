@@ -148,16 +148,33 @@ vysledek = najdi_nejvetsi_plochu(velka_mapa)
 konec = time.time()
 print(f"Výsledek: {vysledek}, čas: {konec - start:.3f} s")
 """
+import random
 #split areas, max possible, tests
+def nahodna_mapa(m, n, pravdepodobnost_o=0.05, pravdepodobnost_x=0.03, seed=None):
+    rnd = random.Random(seed)
+    mapa = []
+    for _ in range(m):
+        radek = []
+        for _ in range(n):
+            r = rnd.random()
+            if r < pravdepodobnost_o:
+                radek.append("o")
+            elif r < pravdepodobnost_o + pravdepodobnost_x:
+                radek.append("x")
+            else:
+                radek.append(".")
+        mapa.append("".join(radek))
+    return mapa
+print("\n".join(nahodna_mapa(20,20)))
 PLOCHA = [#.->1,x->0,o->2
-        ".....x.....",#11111011111
-        ".....x.....",#11111011111
-        ".....x.....",#11111011111
-        ".....x.....",#11111011111
-        ".....x.....",#11111011111
-        ".....x.....",#11111011111
-        ".....x.....",#11111011111
-    ]
+        ".....x.....",#011111011111
+        ".....x.....",#011111011111
+        ".....x.....",#011111011111
+        ".....x.....",#011111011111
+        ".....x.....",#011111011111
+        ".....x.....",#011111011111
+        ".....x.....",#011111011111
+    ]#   11111011111
 def rebrand(map):
     map = map.copy()
     i = 0
@@ -180,6 +197,7 @@ def check(rmap, indexs, proportions):
             return 0
     return m
 
-print(check(rebrand(PLOCHA), [3,2], [3,3]))
+
+
 
 
