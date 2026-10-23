@@ -11,7 +11,7 @@ for file in os.listdir(path):
         if m not in months:
             months.append(m)
 #print(os.listdir(path=path))
-print(files)
+#print(files)
 for m in months:
     if not os.path.isdir(path+rf"\{m}"):
         os.makedirs(path+rf"\{m}")
@@ -23,3 +23,5 @@ for f in files:
     if not os.path.exists(fp):
         os.system(fr'move "{fpo}" "{ff}"')
         #print(ff,"\n",fp)
+    else:
+        print("skipped: " + f)

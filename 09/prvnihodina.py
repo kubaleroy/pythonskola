@@ -1,18 +1,11 @@
+def qsort(inlist):
+    if inlist == []: 
+        return []
+    else:
+        pivot = inlist[0]
+        lesser = qsort([x for x in inlist[1:] if x[0] > pivot[0]])
+        greater = qsort([x for x in inlist[1:] if x[0] <= pivot[0]])
+        return lesser + [pivot] + greater
 
 
-#nejdelsi retezec stejnych znaku primo po sobe 
-def nejdelsi_retezec():
-    x = input("str>>")
-    longest = 0
-    run = 0
-    last = ""
-    for i in x:
-        if i == last:
-            run += 1
-        else:
-            if run > longest:
-                longest = run
-            run = 1
-            last = i
-    print(longest)
-#nejdelsi_retezec()
+print(qsort([[5,2],[1,8],[6,4]]))

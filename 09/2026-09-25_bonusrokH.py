@@ -149,6 +149,7 @@ konec = time.time()
 print(f"Výsledek: {vysledek}, čas: {konec - start:.3f} s")
 """
 import random
+import numpy as np
 #split areas, max possible, tests
 def nahodna_mapa(m, n, pravdepodobnost_o=0.05, pravdepodobnost_x=0.03, seed=None):
     rnd = random.Random(seed)
@@ -165,7 +166,7 @@ def nahodna_mapa(m, n, pravdepodobnost_o=0.05, pravdepodobnost_x=0.03, seed=None
                 radek.append(".")
         mapa.append("".join(radek))
     return mapa
-print("\n".join(nahodna_mapa(20,20)))
+#print("\n".join(nahodna_mapa(20,20)))
 PLOCHA = [#.->1,x->0,o->2
         ".....x.....",#011111011111
         ".....x.....",#011111011111
@@ -181,8 +182,15 @@ def rebrand(map):
     for row in map:
         map[i] = map[i].replace(".", "1").replace("x", "0").replace("o", "2")
         i+=1
-
     return map
+def rebrandL(map):
+    map = map.copy()
+    i = 0
+    for row in map:
+        map[i] = [int(x) for x in map[i].replace(".", "1").replace("x", "0").replace("o", "2")]
+        i+=1
+    return map
+
 
 
 def check(rmap, indexs, proportions):
@@ -197,7 +205,63 @@ def check(rmap, indexs, proportions):
             return 0
     return m
 
+global Colrout
+Colrout = [[],[]]
+def getColRowmax(ColRow:list, StartIndex=0, soft=True, startVal=0):
+    global Colrout
+    hc = startVal
+    for i in range(StartIndex, len(ColRow)):
+        #if not soft: print(f"{i=}")
+        if ColRow[i] == 1:
+            hc+=1
+        elif ColRow[i] == 0:
+            if soft: Colrout[0].append([hc,i-hc])
+            if not soft: 
+                Colrout[1].append([hc,i-hc])
+                return
+            hc = 0
+        elif not soft:
+            Colrout[1].append([hc,i-hc])
+            return
+        else:
+            getColRowmax(ColRow,i+1,False,hc+1)
+            Colrout[0].append([hc,i-hc])
+            hc = 0
+    print(Colrout)
+
+def qsortmodded(inlist):
+    if inlist == []: 
+        return []
+    else:
+        pivot = inlist[0]
+        lesser = qsortmodded([x for x in inlist[1:] if x[0] > pivot[0]])
+        greater = qsortmodded([x for x in inlist[1:] if x[0] <= pivot[0]])
+        return lesser + [pivot] + greater
 
 
-
-
+def getColRowMaxs(rmap):
+    global Colrout
+    out = [[],[]]
+    for row in rmap:
+        Colrout = [[],[]]
+        getColRowmax(row+[0])
+        #print(row)
+        out[0].append([qsortmodded(Colrout[0]),qsortmodded(Colrout[1])])
+    rmc = np.array(rmap).T
+    for col in rmc:
+        Colrout = [[],[]]
+        #print(col)
+        getColRowmax(col+[0])
+        print(Colrout)
+        out[0].append([qsortmodded(Colrout[0]),qsortmodded(Colrout[1])])
+    return out
+print([5,2,1]+[5])
+print(getColRowMaxs(rebrandL([
+        ".....x.....",
+        ".....x.....",
+        ".....x.....",
+        ".....o.....",
+        ".....x.....",
+        ".....x.....",
+        ".....x.....",
+    ])))
