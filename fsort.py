@@ -1,7 +1,7 @@
 import os
 #format YYYY-MM-DD
 # f MM
-path =r"C:\Users\23lsalatj\Desktop\python"
+path = os.path.dirname(os.path.realpath(__file__))
 files = []
 months = []
 for file in os.listdir(path):
