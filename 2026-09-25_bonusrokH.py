@@ -149,6 +149,7 @@ konec = time.time()
 print(f"Výsledek: {vysledek}, čas: {konec - start:.3f} s")
 """
 import random
+import numpy as np
 #split areas, max possible, tests
 def nahodna_mapa(m, n, pravdepodobnost_o=0.05, pravdepodobnost_x=0.03, seed=None):
     rnd = random.Random(seed)
@@ -175,13 +176,15 @@ PLOCHA = [#.->1,x->0,o->2
         ".....x.....",#011111011111
         ".....x.....",#011111011111
     ]#   11111011111
-def rebrand(map):
+def rebrand(map, Int = False):
     map = map.copy()
     i = 0
     for row in map:
-        map[i] = map[i].replace(".", "1").replace("x", "0").replace("o", "2")
+        map[i] = map[i].replace(".", "0").replace("x", "2").replace("o", "1")
         i+=1
-
+    if Int:
+        for i in range(len(map)):
+            map[i] = [int(x) for x in map[i]]
     return map
 
 
@@ -206,13 +209,25 @@ def rmcol(col):
             return l
 
 
-def ccol(index, rmap):
-    #check colums possibles
-    #       soft. real
-    rcmap = [[],[]]
-    col = "".join([x[index] for x in rmap])
-    ind = 0
-    
+def buildmH(le, he, pos, size):
+    mH = np.zeros(size, dtype=int)
+    mH.setfield()
 
+    print(mH)
+    for i in range(he):
+        mH[i+pos[1]][pos[0]] = 1
+        mH[i+le+pos[1]][pos[0]] = 1
+    for i in range(le-2):
+        mH[(pos[1]+(he-1)/2)][i+1+pos[0]]
+    return mH
+
+
+
+
+
+def mCheck(mH,M):
+    pass
+
+print(buildmH(5,7,[1,1],[15,15]))
 
 
